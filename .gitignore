@@ -1,0 +1,9 @@
+# Android / Gradle
+.gradle/
+build/
+local.properties
+.kotlin/
+
+# Laptop controller
+__pycache__/
+laptop/calibration.json
