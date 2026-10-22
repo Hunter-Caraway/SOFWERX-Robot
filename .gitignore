@@ -4,6 +4,8 @@ build/
 local.properties
 .kotlin/
 
-# Laptop controller
+# Python
 __pycache__/
-laptop/calibration.json
+
+# What follow mode measured on the robot
+vision/follow_calibration.json
