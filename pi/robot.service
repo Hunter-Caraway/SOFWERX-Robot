@@ -1,0 +1,26 @@
+# Starts pi/run_all.py (watch receiver + people counter) when the Pi boots, and again if it stops.
+#
+# Install on the Pi, from ~/robot:
+#     sudo cp pi/robot.service /etc/systemd/system/
+#     sudo systemctl daemon-reload
+#     sudo systemctl enable --now robot
+# Its output: journalctl -u robot -f
+
+[Unit]
+Description=SOFWERX robot: watch receiver and people counter (pi/run_all.py)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=sofwerx
+WorkingDirectory=/home/sofwerx/robot
+ExecStart=/usr/bin/python3 -u /home/sofwerx/robot/pi/run_all.py
+Restart=always
+RestartSec=2
+# Stopping sends SIGTERM to run_all.py only, which stops the receiver (final STOP, motors off) and the
+# people counter as Ctrl+C would. Anything still running after TimeoutStopSec is killed.
+KillMode=mixed
+TimeoutStopSec=10
+
+[Install]
+WantedBy=multi-user.target
